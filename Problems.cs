@@ -9,33 +9,33 @@ namespace DatabaseFirstLINQ
     {
         private ECommerceContext _context;
 
-//        public Problems()
-//        {
-//            _context = new ECommerceContext();
-//        }
-//        public void RunLINQQueries()
-//        {
-//            //ProblemOne();
-//            //ProblemTwo();
-//            //ProblemThree();
-//            //ProblemFour();
-//            //ProblemFive();
-//            //ProblemSix();
-//            //ProblemSeven();
-//            //ProblemEight();
-//            //ProblemNine();
-//            //ProblemTen();
-//            //ProblemEleven();
-//            //ProblemTwelve();
-//            //ProblemThirteen();
-//            //ProblemFourteen();
-//            //ProblemFifteen();
-//            //ProblemSixteen();
-//            //ProblemSeventeen();
-//            //ProblemEighteen();
-//            //ProblemNineteen();
-//            //ProblemTwenty();
-//        }
+        public Problems()
+        {
+            _context = new ECommerceContext();
+        }
+        public void RunLINQQueries()
+        {
+            //            //ProblemOne();
+            //            //ProblemTwo();
+            ProblemThree();
+            //            //ProblemFour();
+            //            //ProblemFive();
+            //            //ProblemSix();
+            //            //ProblemSeven();
+            //            //ProblemEight();
+            //            //ProblemNine();
+            //            //ProblemTen();
+            //            //ProblemEleven();
+            //            //ProblemTwelve();
+            //            //ProblemThirteen();
+            //            //ProblemFourteen();
+            //            //ProblemFifteen();
+            //            //ProblemSixteen();
+            //            //ProblemSeventeen();
+            //            //ProblemEighteen();
+            //            //ProblemNineteen();
+            //            //ProblemTwenty();
+        }
 
         // <><><><><><><><> R Actions (Read) <><><><><><><><><>
         private void ProblemOne()
@@ -64,6 +64,16 @@ namespace DatabaseFirstLINQ
         {
             // Write a LINQ query that gets each product where the products price is greater than $150.
             // Then print the name and price of each product from the above query to the console.
+
+            var products = _context.Products;
+            var expensiveProducts = products.Where(p => p.Price >= 150);
+            foreach (var product in expensiveProducts)
+                {
+                Console.WriteLine(product.Name + "" + product.Price);
+                }
+
+
+
 
         }
 
