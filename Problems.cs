@@ -15,14 +15,14 @@ namespace DatabaseFirstLINQ
         }
         public void RunLINQQueries()
         {
-            //            //ProblemOne();
-            //            //ProblemTwo();
+            //ProblemOne();
+            //ProblemTwo();
             //ProblemThree();
             //ProblemFour();
             //ProblemFive();
-            ProblemSix();
-            //            //ProblemSeven();
-            //            //ProblemEight();
+            //ProblemSix();
+            //ProblemSeven();
+            ProblemEight();
             //            //ProblemNine();
             //            //ProblemTen();
             //            //ProblemEleven();
@@ -134,6 +134,23 @@ namespace DatabaseFirstLINQ
         {
             // Write a LINQ query that retreives all of the products in the shopping cart of the user who has the email "afton@gmail.com".
             // Then print the product's name, price, and quantity to the console.
+
+            //user
+            //email
+            //products
+
+            var products = _context.ShoppingCarts.Include(sc => sc.Product).Include(ur => ur.User.Email == "afton@gmail.com");
+            foreach (ShoppingCart product in products)
+            {
+                Console.WriteLine( $"Name:{product.Product} Quantity:{product.Quantity}" );
+            }
+
+
+            //var customerUsers = _context.UserRoles.Include(ur => ur.Role).Include(ur => ur.User).Where(ur => ur.Role.RoleName == "Customer");
+            //foreach (UserRole userRole in customerUsers)
+            //{
+            //    Console.WriteLine($"Email: {userRole.User.Email} Role: {userRole.Role.RoleName}");
+            //}
 
         }
 
