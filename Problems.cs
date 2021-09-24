@@ -426,36 +426,42 @@ namespace DatabaseFirstLINQ
                 BonusThree();
             }
 
-            Console.WriteLine("Press 1 to view cart, press 2 to view all products for sale");
-            int userChoice = int.Parse(Console.ReadLine());
-            // products in cart
+            if(validLogin == true)
+            { 
+                    Console.WriteLine("Press 1 to view cart, press 2 to view all products for sale");
+                    int userChoice = int.Parse(Console.ReadLine());
+                // products in cart
 
-            if (userChoice == 1){ 
-                    var userCart = _context.ShoppingCarts.Include(ur => ur.Product).Include(ur => ur.User).Where(ur => ur.User.Email == $"{email}").Select(sc => sc.Product);
-                        foreach (var item in userCart)
-                        {
-                            Console.WriteLine($"Cart: {item.Name} \n ${item.Price} Product ID: ${item.Id}");
-                        }
-                Console.WriteLine("If you would you like to delete an item/items, enter the product id");
-                int itemToDelete = int.Parse(Console.ReadLine());
-                var userIdDelete = _context.Users.Where(u => u.Email == $"{email}").Select(u => u.Id).SingleOrDefault();
-                var productIdDelete = _context.Products.Where(p => p.Id == itemToDelete).Select(p => p.Id).SingleOrDefault();
-                ShoppingCart newProduct = new ShoppingCart()
+                if (userChoice == 1)
                 {
-                    UserId = userIdDelete,
-                    ProductId = productIdDelete,
-                    Quantity = 1,
-                };
-                _context.ShoppingCarts.Update(newProduct);
-                _context.SaveChanges();
+                    var userCart = _context.ShoppingCarts.Include(ur => ur.Product).Include(ur => ur.User).Where(ur => ur.User.Email == $"{email}").Select(sc => sc.Product);
+                    foreach (var item in userCart)
+                    {
+                        Console.WriteLine($"Cart: {item.Name} \n ${item.Price} Product ID: {item.Id}");
+                    }
+                    Console.WriteLine("If you would you like to delete an item/items, enter the product id");
+                    int itemToDelete = int.Parse(Console.ReadLine());
+                    var userIdDelete = _context.Users.Where(u => u.Email == $"{email}").Select(u => u.Id).SingleOrDefault();
+                    var productIdDelete = _context.Products.Where(p => p.Id == itemToDelete).Select(p => p.Id).SingleOrDefault();
+                    ShoppingCart deletedProduct = new ShoppingCart()
+                    {
+                        UserId = userIdDelete,
+                        ProductId = productIdDelete,
+                        Quantity = 0,
+                    };
+                    _context.ShoppingCarts.Update(deletedProduct);
+                    _context.SaveChanges();
 
-            }
-            else if(userChoice == 2) { 
-                //All products
+                    //Made this an update function with thoughts of adding else/if for a update/delete capability
+
+                }
+                else if (userChoice == 2)
+                {
+                    //All products
                     var productList = _context.Products;
                     foreach (var item in productList)
                     {
-                        Console.WriteLine($"Product: {item.Name} \n Price: ${item.Price} \n Product ID {item.Id} \n" );
+                        Console.WriteLine($"Product: {item.Name} \n Price: ${item.Price} \n Product ID {item.Id} \n");
                     }
 
 
@@ -464,7 +470,7 @@ namespace DatabaseFirstLINQ
                     int chosenNumber = int.Parse(Console.ReadLine());
                     var userId = _context.Users.Where(u => u.Email == $"{email}").Select(u => u.Id).SingleOrDefault();
                     var productId = _context.Products.Where(p => p.Id == chosenNumber).Select(p => p.Id).SingleOrDefault();
-                    int quant = _context.ShoppingCarts.Where(p=>p.ProductId == chosenNumber).Where(p=>p.UserId==userId).Select(q => q.Quantity).Count();
+                    int quant = _context.ShoppingCarts.Where(p => p.ProductId == chosenNumber).Where(p => p.UserId == userId).Select(q => q.Quantity).Count();
                     ShoppingCart newProduct = new ShoppingCart()
                     {
                         UserId = userId,
@@ -473,6 +479,7 @@ namespace DatabaseFirstLINQ
                     };
                     _context.ShoppingCarts.Update(newProduct);
                     _context.SaveChanges();
+                }
             }
         }
 
