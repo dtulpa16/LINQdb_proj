@@ -23,9 +23,9 @@ namespace DatabaseFirstLINQ
             //ProblemSix();
             //ProblemSeven();
             //ProblemEight();
-            //            //ProblemNine();
-            //            //ProblemTen();
-            //            //ProblemEleven();
+            //ProblemNine();
+            //ProblemTen();
+            ProblemEleven();
             //            //ProblemTwelve();
             //            //ProblemThirteen();
             //            //ProblemFourteen();
@@ -152,13 +152,19 @@ namespace DatabaseFirstLINQ
             }
         }
 
-        private void ProblemTen()
-        {
-            // Write a LINQ query that retreives all of the products in the shopping cart of users who have the role of "Employee".
-            // Then print the user's email as well as the product's name, price, and quantity to the console.
-            var employeerUsers = _context.UserRoles.Include(ur => ur.Role).Include(ur => ur.User).Where(ur => ur.Role.RoleName == "Employee");
+        //private void ProblemTen()
+        //{
+        //    // Write a LINQ query that retreives all of the products in the shopping cart of users who have the role of "Employee".
+        //    // Then print the user's email as well as the product's name, price, and quantity to the console.
+        //    // Need multiple queries
+        //    var usersInRole = _context.UserRoles.Where(u => u.Role.RoleName == "Employee").Select(u => u.User.Id);
+        //    var userShoppingCartProducts = _context.ShoppingCarts.Include(sc => sc.Product).Include(sc => sc.User).Where(sc => usersInRole.Contains(sc.UserId));​
+        //    foreach (var shoppingCart in userShoppingCartProducts)
+        //    {
+        //        Console.WriteLine($"Email: {shoppingCart.User.Email}\n Product Name: {shoppingCart.Product.Name} \n {shoppingCart.Product.Price}\n {shoppingCart.Quantity}\n\n");
+        //    }
 
-        }
+        //}
 
         // <><><><><><><><> CUD (Create, Update, Delete) Actions <><><><><><><><><>
 
@@ -166,12 +172,15 @@ namespace DatabaseFirstLINQ
 
         private void ProblemEleven()
         {
+            DateTime d1 = new DateTime(2021, 1, 1);
             // Create a new User object and add that user to the Users table using LINQ.
             User newUser = new User()
             {
                 Email = "david@gmail.com",
-                Password = "DavidsPass123"
+                Password = "DavidsPass123",
+                RegistrationDate = d1,
             };
+            Console.WriteLine(newUser);
             _context.Users.Add(newUser);
             _context.SaveChanges();
         }
