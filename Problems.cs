@@ -451,9 +451,7 @@ namespace DatabaseFirstLINQ
                     };
                     _context.ShoppingCarts.Update(deletedProduct);
                     _context.SaveChanges();
-
                     //Made this an update function with thoughts of adding else/if for a update/delete capability
-
                 }
                 else if (userChoice == 2)
                 {
@@ -463,7 +461,6 @@ namespace DatabaseFirstLINQ
                     {
                         Console.WriteLine($"Product: {item.Name} \n Price: ${item.Price} \n Product ID {item.Id} \n");
                     }
-
 
                     //Add a product to cart
                     Console.WriteLine("Enter product ID to add it to your cart");
